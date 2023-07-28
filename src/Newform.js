@@ -17,12 +17,6 @@ function Newform() {
         }
       };
 
-
-   
-
-      
-      
-
   return (
     <div>
         <form>
@@ -32,6 +26,14 @@ function Newform() {
           value={inputValue} 
         //   onKeyDown={handleKeyDown}
           /><br /> */}
+
+        <input type='email'
+          placeholder='Enter email'
+          onChange={handleEmail}
+          value={number} 
+          onKeyDown={handleKeyDown}
+          /><br />
+
         <input type='number'
           placeholder='mobile no'
           onChange={handleNumber}
