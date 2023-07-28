@@ -9,205 +9,223 @@ function App() {
   const [confirmValue, setConfirmValue] = useState("")
   const [mobileValue, setMobileValue] = useState("")
   const [errorEmail,setErrorEmail]=useState("")
+  const [errorName,setErrorName]=useState("")
   const [errorpassword,setErrorpassword]=useState("")
   const [errorConfirm,setErrorconfirm]=useState("")
   const [errormob,setErrormob]=useState("")
   const [submitForm,setSubmitForm]=useState("")
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const nameRegex = /^[a-zA-Z]$/
+  const nameRegex = /^[a-zA-Z]{5,20}$/
   const emailRegex = /^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,5}$/
   const mobRegex = /^[0-9]{10}$/
   const passwordRegex = /^[a-zA-Z0-9!@#$%^&*]{8,16}$/
 
-  function handleinput(e){
-    setInputValue(e.target.value)
+  const handleKeyDown = e => {
+        if (e.key === " ") {
+          e.preventDefault();
+        }
+     
+      };
+
+
+  function handleMobile(e){
+    setMobileValue(e.target.value)
     console.log(e.target.value)
+  }
+    
+
+  function handleinput(e){
+    let input = e.target.value.replace(/[^a-zA-Z]/, "");
+    setInputValue(input)
+    // setInputValue(e.target.value)
+    // console.log(e.target.value)
   }
   function handleEmail(e){
-    setEmailValue(e.target.value)
-   
+    // let input = e.target.value.replace(/^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,5}$/, "");
+    // setEmailValue(input);   
+    setEmailValue(e.target.value);   
+
   }
-  function handlePassword(e){
-    setPasswordValue(e.target.value)
-    console.log(e.target.value)
+
+  // function handlePassword(e){
+  //   const strongPassword = (e.target.value)
+  //   setPasswordValue(strongPassword)
+  //   console.log(e.target.value)
     
+  //   if(!strongPassword.match(lowercase)){
+  //     setErrorMessage("Password should contains lowercase letters!")
+  //   }
+  //   else if(!strongPassword.match(highercase)){
+  //     setErrorMessage("Password should contains highercase letters!")
+  //   }
+  //   else if(!strongPassword.match(numbercase)){
+  //     setErrorMessage("Password should contains Number!")
+  //   }
+  //   else if(!strongPassword.match(lettercase)){
+  //     setErrorMessage("Password should contains special letters!")
+  //   }
+  //   else{
+  //     setErrorMessage("")
+  //    }
+
+  // }
+
+
+  function handlePassword(e) {
+    const pass = ((e.target.value) )
+    setPasswordValue(pass);
+    console.log(passwordValue);
+    
+    const lowercase = /[a-z]/;
+    const uppercase = /[A-Z]/;
+    const numbercase = /[0-9]/;
+    const specialcase = /[!@#$%^&*]/; 
+    const minLength = 8;
+    const maxLength = 16;
+  
+  
+    if (!lowercase.test(passwordValue)) {
+      setErrorMessage("Password should contain lowercase letters!");
+    } else if (!uppercase.test(passwordValue)) {
+      setErrorMessage("Password should contain uppercase letters!");
+    } else if (!numbercase.test(passwordValue)) {
+      setErrorMessage("Password should contain at least one number!");
+    } else if (!specialcase.test(passwordValue)) {
+      setErrorMessage("Password should contain at least one special character!");
+    } else if (passwordValue.length < minLength) {
+      setErrorMessage(`Password should be at least ${minLength} characters long!`);
+    } else if (passwordValue.length > maxLength) {
+      setErrorMessage(`Password should be no more than ${maxLength} characters long!`);
+    }else {
+      setErrorMessage("");
+    }
   }
+
   function handleConfirmPassword(e){
     setConfirmValue(e.target.value)
     console.log(e.target.value)
   }
  
-  function handleMobile(e){
-    setMobileValue(e.target.value)
-    console.log(e.target.value)
-  }
 
 
   function handleSubmit(e){
     e.preventDefault()
     
+    if(inputValue.match(nameRegex)){
+      setErrorName("")
+    }
+    else{
+      setErrorName("Enter your Name")
+    }
+
+
     if(emailValue.match(emailRegex)){
       setErrorEmail("")
-      if(passwordValue.match(passwordRegex)){
-        setErrorpassword("")
-        if(passwordValue === confirmValue){
-          setErrorconfirm("")
-          if(mobileValue.match(mobRegex)){
-            setSubmitForm(`Hello ${inputValue} Your form is submited`)
-            Swal.fire({
-              position: 'top-center',
-              icon: 'success',
-              title: `${inputValue } is your form is submited`,
-              showConfirmButton: false,
-              timer: 1500
-            })
-          }
-          else{
-            setErrormob("Enter your correct Mobile Number")
-          }
-        }
-        else{
-          setErrorconfirm("give a correct password")
-        }
-      }
-      else{
-        setErrorpassword("give a Strong password")
-      }
-    }else{
+    }
+    else{
       setErrorEmail("Correct this email id ")
     }
-  }
+    
+
+
+
+    if(passwordValue !== ""){
+        setErrorpassword("")
+    }
+    else{
+      setErrorpassword("give a Strong password")
+    }
+
+
+
+    if((passwordValue === confirmValue ) && (passwordValue !== "") ){
+      setErrorconfirm("")
+    }
+    else{
+      setErrorconfirm("give a correct password")
+    }
 
 
 
 
-
-  // function handleSubmit(e){
-  //   e.preventDefault()
-  //   if(emailValue.match(emailRegex)){
-  //     setErrorEmail("")
-  //     console.log('====>>')
-      
-  //   }else{
-  //     setErrorEmail("Correct this email id ")
-  //   }
-
-
-  //   if(passwordValue.match(passwordRegex)){
-  //     setErrorpassword("")
-      
-  //   }
-  //   else{
-  //     setErrorpassword("give a Strong password")
-  //   }
-
-
-  //   if(passwordValue === confirmValue){
-  //     setErrorconfirm("")
+    if(mobileValue.match(mobRegex)){
+      setErrormob("")
      
-  //   }
-  //   else{
-  //     setErrorconfirm("give a correct password")
-  //   }
-
-  //   if(mobileValue.match(mobRegex)){
-  //     setErrormob("")
-  //   }
-  //   else{
-  //     setErrormob("Enter your correct Mobile Number")
-  //   }
-  // }
-  
+    }
+    else{
+      setErrormob("Enter your correct Mobile Number")
+    }
 
 
 
+  //   setSubmitForm(`Hello ${inputValue} Your form is submited`)
+  //   Swal.fire({
+  //     position: 'top-center',
+  //     icon: 'success',
+  //     title: `${inputValue } is your form is submited`,
+  //     showConfirmButton: false,
+  //     timer: 2500
+  //   })
+  //   setInputValue("")
+  //   setEmailValue("")
+  //   setPasswordValue("")
+  //   setConfirmValue("")
+  //   setMobileValue("")
 
 
-
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  
-  //   let errors = {
-  //     email: "",
-  //     password: "",
-  //     confirm: "",
-  //     mobile: "",
-  //   };
-  
-  //   // Check email
-  //   if (!emailValue.match(emailRegex)) {
-  //     errors.email = "Correct this email id";
-  //   }
-  
-  //   // Check password
-  //   if (!passwordValue.match(passwordRegex)) {
-  //     errors.password = "Give a strong password";
-  //   }
-  
-  //   // Check confirm password
-  //   if (passwordValue !== confirmValue) {
-  //     errors.confirm = "Passwords do not match";
-  //   }
-  
-  //   // Check mobile number
-  //   if (!mobileValue.match(mobRegex)) {
-  //     errors.mobile = "Enter your correct Mobile Number";
-  //   }
-  
-  //   // Update state with errors
-  //   setErrorEmail(errors.email);
-  //   setErrorpassword(errors.password);
-  //   setErrorconfirm(errors.confirm);
-  //   setErrormob(errors.mobile);
-  
-  //   // If there are no errors, the form can be submitted
-  //   if (
-  //     !errors.email &&
-  //     !errors.password &&
-  //     !errors.confirm &&
-  //     !errors.mobile
-  //   ) {
-  //     // Do something, e.g., submit the form or handle the successful case
-  //     alert("give a corect detail")
-  //   }
-  // }
-  
-
- 
+   }
 
   return (
     <div className='form'>
+      <h1>Form Validation</h1>
       <form onSubmit={handleSubmit}>
 
 
         <input type='text'
           placeholder='Enter your Name'
           onChange={handleinput}
-          value={inputValue} /><br />
+          value={inputValue} 
+          // style={{
+          //   border: completed ? '2px solid red' : '2px solid black'
+          // }}
+
+          className={errorName ? "red-border" : ""}
+          /><br />
+        <p style={{ color: 'red' }}>{errorName}</p>
 
         <input type='email'
           placeholder='Email'
           onChange={handleEmail}
-          value={emailValue} /><br />
+          onKeyDown={handleKeyDown}
+          value={emailValue} 
+          className={errorEmail ? "red-border" : ""}/><br />
       
         {<p style={{ color: 'red' }}>{errorEmail}</p>}
              
         <input type='password'
           placeholder='Password'
+          onKeyDown={handleKeyDown}
           onChange={handlePassword}
-          value={passwordValue} /><br />
-            {errorpassword && <p style={{ color: 'red' }}>{errorpassword}</p>}
-
+          value={passwordValue} 
+          className={errorpassword ? "red-border" : ""}/><br />
+           <p style={{ color: 'red' }}>{errorMessage}</p>
+           <p style={{ color: 'red' }}>{errorpassword}</p>
+          
         <input type='password'
           placeholder='Confirm Password'
+          onKeyDown={handleKeyDown}
           onChange={handleConfirmPassword}
-          value={confirmValue} /><br />
+          value={confirmValue}
+          className={errorConfirm ? "red-border" : ""} /><br />
             { <p style={{ color: 'red' }}>{errorConfirm}</p>}
 
         <input type='number'
           placeholder='Mob No'
+          onKeyDown={handleKeyDown}
           onChange={handleMobile}
-          value={mobileValue} /><br />
+          value={mobileValue}
+          className={errormob ? "red-border" : ""} /><br />
             { <p style={{ color: 'red' }}>{errormob}</p>}
 
         <button type='submit'>Submit</button>
