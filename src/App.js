@@ -30,8 +30,9 @@ function App() {
 
 
   function handleMobile(e){
-    setMobileValue(e.target.value)
-    console.log(e.target.value)
+    const limit = 10;
+    setMobileValue(e.target.value.slice(0, limit))
+    // console.log(e.target.value)
   }
     
 
