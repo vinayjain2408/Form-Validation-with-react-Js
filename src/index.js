@@ -4,12 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Newform from './Newform';
-
+// import Form from "./Form"
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
-   
+   {/* <Form /> */}
     {/* <Newform /> */}
   </React.StrictMode>
 );

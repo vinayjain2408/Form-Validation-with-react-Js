@@ -18,7 +18,7 @@ function App() {
 
   const nameRegex = /^[a-zA-Z]{3,20}$/
   const emailRegex = /^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,5}$/
-  const mobRegex = /^[0-9]{10}$/
+  const mobRegex = /[0-9]{10}/
   const passwordRegex = /^[a-zA-Z0-9!@#$%^&*]{8,16}$/
 
   const handleKeyDown = e => {
@@ -31,10 +31,11 @@ function App() {
 
   function handleMobile(e){
     const limit = 10;
-    setMobileValue(e.target.value.slice(0, limit))
+    const mobilenumber = e.target.value.slice(0, limit)
+    setMobileValue(mobilenumber)
 
 
-    if(mobileValue.match(mobRegex)){
+    if(mobilenumber.match(mobRegex)){
       setErrormob("")
     }else{
       setErrormob("Enter your correct Name")
@@ -43,11 +44,11 @@ function App() {
     
 
   function handleinput(e){
-    let input = e.target.value.replace(/[^a-zA-Z]/, "");
+    let input = e.target.value.replace(/[^a-zA-Z]/g, "");
     setInputValue(input)
 
 
-    if(inputValue.match(nameRegex)){
+    if(input.match(nameRegex)){
       setErrorName("")
     }else{
       setErrorName("Enter your correct Name")
@@ -56,11 +57,12 @@ function App() {
 
 
   function handleEmail(e){
-    setEmailValue(e.target.value);  
-    if(emailValue.match(emailRegex)){
+    const emailID = e.target.value
+    setEmailValue(emailID);  
+    if(emailID.match(emailRegex)){
       setErrorEmail("")
     }else{
-      setErrorEmail("Enter your correct Name")
+      setErrorEmail("Enter Correct email id")
     } 
   }
 
@@ -89,9 +91,9 @@ function App() {
 
 
   function handlePassword(e) {
-    const pass = ((e.target.value) )
+    const pass = (e.target.value )
     setPasswordValue(pass);
-    console.log(passwordValue);
+    console.log(pass);
     
     const lowercase = /[a-z]/;
     const uppercase = /[A-Z]/;
@@ -100,18 +102,20 @@ function App() {
     const minLength = 8;
     const maxLength = 16;
   
-  
-    if (!lowercase.test(passwordValue)) {
+    if(pass !==""){
+        setErrorpassword('');
+    }
+    if (!lowercase.test(pass)) {
       setErrorMessage("Password should contain lowercase letters!");
-    } else if (!uppercase.test(passwordValue)) {
+    } else if (!uppercase.test(pass)) {
       setErrorMessage("Password should contain uppercase letters!");
-    } else if (!numbercase.test(passwordValue)) {
+    } else if (!numbercase.test(pass)) {
       setErrorMessage("Password should contain at least one number!");
-    } else if (!specialcase.test(passwordValue)) {
+    } else if (!specialcase.test(pass)) {
       setErrorMessage("Password should contain at least one special character!");
-    } else if (passwordValue.length < minLength) {
+    } else if (pass.length < minLength) {
       setErrorMessage(`Password should be at least ${minLength} characters long!`);
-    } else if (passwordValue.length > maxLength) {
+    } else if (pass.length > maxLength) {
       setErrorMessage(`Password should be no more than ${maxLength} characters long!`);
     }else {
       setErrorMessage("");
@@ -119,10 +123,11 @@ function App() {
   }
 
   function handleConfirmPassword(e){
+
     setConfirmValue(e.target.value)
     console.log(e.target.value)
 
-    if((passwordValue === confirmValue ) && (passwordValue !== "") ){
+    if((passwordValue === e.target.value ) && (passwordValue !== "") ){
       setErrorconfirm("")
     }
     else{
@@ -135,7 +140,7 @@ function App() {
   function handleSubmit(e){
     e.preventDefault()
     
-    if(inputValue.match(nameRegex)){
+    if(inputValue.match(nameRegex) && inputValue !== ""){
       setErrorName("")
     }
     else{
@@ -143,7 +148,7 @@ function App() {
     }
 
 
-    if(emailValue.match(emailRegex)){
+    if(emailValue.match(emailRegex) && emailValue !==''){
       setErrorEmail("")
     }
     else{
@@ -172,7 +177,7 @@ function App() {
 
 
 
-    if(mobileValue.match(mobRegex)){
+    if(mobileValue.match(mobRegex) && mobileValue !== ""){
       setErrormob("")
      
     }
@@ -181,8 +186,8 @@ function App() {
     }
 
 
-    if(errorName === "" && errorEmail === "" && errorpassword === '' && errorConfirm === '' && errormob === ""){
-      setSubmitForm(`Hello ${inputValue} Your form is submited`)
+    if(errorName === '' && errorEmail === '' && errorpassword === '' && errorConfirm === '' && errormob === '' && inputValue !== "" && emailValue !== "" && passwordValue !== '' && confirmValue !== "" & mobileValue!== ""){
+      // setSubmitForm(`Hello ${inputValue} Your form is submited`)
       
       setInputValue("")
       setEmailValue("")
@@ -190,13 +195,13 @@ function App() {
       setConfirmValue("")
       setMobileValue("")
 
-      // Swal.fire({
-      //   position: 'top-center',
-      //   icon: 'success',
-      //   title: `${inputValue } is your form is submited`,
-      //   showConfirmButton: false,
-      //   timer: 2500
-      // })
+      Swal.fire({
+        position: 'top-center',
+        icon: 'success',
+        title: `Hello ${inputValue } is your form is submited`,
+        showConfirmButton: false,
+        timer: 2500
+      })
     }
    
 
@@ -247,7 +252,7 @@ function App() {
           className={errorConfirm ? "red-border" : ""} /><br />
             { <p style={{ color: 'red' }}>{errorConfirm}</p>}
 
-        <input type='number'
+        <input type='text'
           placeholder='Mob No'
           onKeyDown={handleKeyDown}
           onChange={handleMobile}
