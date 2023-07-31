@@ -25,8 +25,7 @@ function App() {
         if (e.key === " ") {
           e.preventDefault();
         }
-     
-      };
+  };
 
 
   function handleMobile(e){
@@ -44,15 +43,18 @@ function App() {
     
 
   function handleinput(e){
+    if(inputValue === ''){
+
     let input = e.target.value.replace(/[^a-zA-Z]/g, "");
     setInputValue(input)
+    setErrorName("")
 
-
-    if(input.match(nameRegex)){
-      setErrorName("")
     }else{
-      setErrorName("Enter your correct Name")
+      setInputValue(e.target.value)
+      setErrorName("")
     }
+  
+  
   }
 
 
@@ -140,49 +142,35 @@ function App() {
   function handleSubmit(e){
     e.preventDefault()
     
-    if(inputValue.match(nameRegex) && inputValue !== ""){
+    if(inputValue !== ""){
       setErrorName("")
     }
     else{
-      setErrorName("Enter your Name")
+      setErrorName("Name is required")
     }
-
-
-    if(emailValue.match(emailRegex) && emailValue !==''){
+    if(emailValue !==''){
       setErrorEmail("")
     }
     else{
-      setErrorEmail("Correct this email id ")
+      setErrorEmail("Required Email id ")
     }
-    
-
-
-
     if(passwordValue !== ""){
         setErrorpassword("")
     }
     else{
-      setErrorpassword("give a Strong password")
+      setErrorpassword("Required password")
     }
-
-
-
     if((passwordValue === confirmValue ) && (passwordValue !== "") ){
       setErrorconfirm("")
     }
     else{
-      setErrorconfirm("give a correct password")
+      setErrorconfirm("Give a correct password")
     }
-
-
-
-
-    if(mobileValue.match(mobRegex) && mobileValue !== ""){
+    if(mobileValue !== ""){
       setErrormob("")
-     
     }
     else{
-      setErrormob("Enter your correct Mobile Number")
+      setErrormob("Required Mobile Number")
     }
 
 
@@ -198,7 +186,7 @@ function App() {
       Swal.fire({
         position: 'top-center',
         icon: 'success',
-        title: `Hello ${inputValue } is your form is submited`,
+        title: `Hello ${inputValue } , your form is submited`,
         showConfirmButton: false,
         timer: 2500
       })
@@ -218,9 +206,6 @@ function App() {
           placeholder='Enter your Name'
           onChange={handleinput}
           value={inputValue} 
-          // style={{
-          //   border: completed ? '2px solid red' : '2px solid black'
-          // }}
 
           className={errorName ? "red-border" : ""}
           /><br />
@@ -249,11 +234,12 @@ function App() {
           onKeyDown={handleKeyDown}
           onChange={handleConfirmPassword}
           value={confirmValue}
-          className={errorConfirm ? "red-border" : ""} /><br />
+          className={errorConfirm ? "red-border textNumber" : "textNumber"} /><br />
             { <p style={{ color: 'red' }}>{errorConfirm}</p>}
 
-        <input type='text'
+        <input type='number'
           placeholder='Mob No'
+         
           onKeyDown={handleKeyDown}
           onChange={handleMobile}
           value={mobileValue}
