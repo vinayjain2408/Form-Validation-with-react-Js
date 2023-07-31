@@ -16,7 +16,7 @@ function App() {
   const [submitForm,setSubmitForm]=useState("")
   const [errorMessage, setErrorMessage] = useState("");
 
-  const nameRegex = /^[a-zA-Z]{5,20}$/
+  const nameRegex = /^[a-zA-Z]{3,20}$/
   const emailRegex = /^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,5}$/
   const mobRegex = /^[0-9]{10}$/
   const passwordRegex = /^[a-zA-Z0-9!@#$%^&*]{8,16}$/
@@ -32,21 +32,36 @@ function App() {
   function handleMobile(e){
     const limit = 10;
     setMobileValue(e.target.value.slice(0, limit))
-    // console.log(e.target.value)
+
+
+    if(mobileValue.match(mobRegex)){
+      setErrormob("")
+    }else{
+      setErrormob("Enter your correct Name")
+    }
   }
     
 
   function handleinput(e){
     let input = e.target.value.replace(/[^a-zA-Z]/, "");
     setInputValue(input)
-    // setInputValue(e.target.value)
-    // console.log(e.target.value)
-  }
-  function handleEmail(e){
-    // let input = e.target.value.replace(/^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,5}$/, "");
-    // setEmailValue(input);   
-    setEmailValue(e.target.value);   
 
+
+    if(inputValue.match(nameRegex)){
+      setErrorName("")
+    }else{
+      setErrorName("Enter your correct Name")
+    }
+  }
+
+
+  function handleEmail(e){
+    setEmailValue(e.target.value);  
+    if(emailValue.match(emailRegex)){
+      setErrorEmail("")
+    }else{
+      setErrorEmail("Enter your correct Name")
+    } 
   }
 
   // function handlePassword(e){
@@ -106,6 +121,13 @@ function App() {
   function handleConfirmPassword(e){
     setConfirmValue(e.target.value)
     console.log(e.target.value)
+
+    if((passwordValue === confirmValue ) && (passwordValue !== "") ){
+      setErrorconfirm("")
+    }
+    else{
+      setErrorconfirm("give a correct password")
+    }
   }
  
 
@@ -159,20 +181,24 @@ function App() {
     }
 
 
+    if(errorName === "" && errorEmail === "" && errorpassword === '' && errorConfirm === '' && errormob === ""){
+      setSubmitForm(`Hello ${inputValue} Your form is submited`)
+      
+      setInputValue("")
+      setEmailValue("")
+      setPasswordValue("")
+      setConfirmValue("")
+      setMobileValue("")
 
-  //   setSubmitForm(`Hello ${inputValue} Your form is submited`)
-  //   Swal.fire({
-  //     position: 'top-center',
-  //     icon: 'success',
-  //     title: `${inputValue } is your form is submited`,
-  //     showConfirmButton: false,
-  //     timer: 2500
-  //   })
-  //   setInputValue("")
-  //   setEmailValue("")
-  //   setPasswordValue("")
-  //   setConfirmValue("")
-  //   setMobileValue("")
+      // Swal.fire({
+      //   position: 'top-center',
+      //   icon: 'success',
+      //   title: `${inputValue } is your form is submited`,
+      //   showConfirmButton: false,
+      //   timer: 2500
+      // })
+    }
+   
 
 
    }

@@ -8,9 +8,9 @@ import Newform from './Newform';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* <App /> */}
+    <App />
    
-    <Newform />
+    {/* <Newform /> */}
   </React.StrictMode>
 );
 
