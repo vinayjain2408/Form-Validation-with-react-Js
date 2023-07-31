@@ -4,11 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Newform from './Newform';
+import Formik from './Formik';
 // import Form from "./Form"
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
+    {/* <Formik /> */}
    {/* <Form /> */}
     {/* <Newform /> */}
   </React.StrictMode>

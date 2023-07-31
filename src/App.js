@@ -68,28 +68,7 @@ function App() {
     } 
   }
 
-  // function handlePassword(e){
-  //   const strongPassword = (e.target.value)
-  //   setPasswordValue(strongPassword)
-  //   console.log(e.target.value)
-    
-  //   if(!strongPassword.match(lowercase)){
-  //     setErrorMessage("Password should contains lowercase letters!")
-  //   }
-  //   else if(!strongPassword.match(highercase)){
-  //     setErrorMessage("Password should contains highercase letters!")
-  //   }
-  //   else if(!strongPassword.match(numbercase)){
-  //     setErrorMessage("Password should contains Number!")
-  //   }
-  //   else if(!strongPassword.match(lettercase)){
-  //     setErrorMessage("Password should contains special letters!")
-  //   }
-  //   else{
-  //     setErrorMessage("")
-  //    }
 
-  // }
 
 
   function handlePassword(e) {
@@ -257,3 +236,38 @@ function App() {
 }
 
 export default App
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // function handlePassword(e){
+  //   const strongPassword = (e.target.value)
+  //   setPasswordValue(strongPassword)
+  //   console.log(e.target.value)
+    
+  //   if(!strongPassword.match(lowercase)){
+  //     setErrorMessage("Password should contains lowercase letters!")
+  //   }
+  //   else if(!strongPassword.match(highercase)){
+  //     setErrorMessage("Password should contains highercase letters!")
+  //   }
+  //   else if(!strongPassword.match(numbercase)){
+  //     setErrorMessage("Password should contains Number!")
+  //   }
+  //   else if(!strongPassword.match(lettercase)){
+  //     setErrorMessage("Password should contains special letters!")
+  //   }
+  //   else{
+  //     setErrorMessage("")
+  //    }
+
+  // }
