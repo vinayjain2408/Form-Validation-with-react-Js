@@ -29,9 +29,11 @@ function App() {
 
 
   function handleMobile(e){
-    const limit = 10;
-    const mobilenumber = e.target.value.slice(0, limit)
+    // const limit = 10;
+    // const mobilenumber = e.target.value.slice(0, limit)
+    let mobilenumber = e.target.value
     setMobileValue(mobilenumber)
+    
 
 
     if(mobilenumber.match(mobRegex)){
@@ -218,7 +220,7 @@ function App() {
 
         <input type='number'
           placeholder='Mob No'
-         
+         Maxlength="10"
           onKeyDown={handleKeyDown}
           onChange={handleMobile}
           value={mobileValue}
@@ -236,17 +238,6 @@ function App() {
 }
 
 export default App
-
-
-
-
-
-
-
-
-
-
-
 
 
   // function handlePassword(e){
